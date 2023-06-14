@@ -117,7 +117,9 @@ dr_client_main(client_id_t id, int argc, const char *argv[])
     std::cout << "initial fps size: " << fingerprints.size() << std::endl;
     fingerprints.push_back(std::map<uint64, uint64>());
 }
- 
+
+// reference:
+// https://dynamorio.org/API_tutorial_bbdynsize3.html
 static void
 event_exit(void)
 {
@@ -331,6 +333,8 @@ clean_call_for_all_instr(/*uint64 bb_id, */uint64 segment_size, app_pc addr)
 /* We transform string loops into regular loops so we can more easily
  * monitor every memory reference they make.
  */
+// reference:
+// https://github.com/DynamoRIO/dynamorio/blob/master/clients/drcachesim/tracer/tracer.cpp
 static dr_emit_flags_t
 event_bb_app2app(void *drcontext, void *tag, instrlist_t *bb, bool for_trace,
                  bool translating)
@@ -369,6 +373,8 @@ event_app_analysis(void *drcontext, void *tag, instrlist_t *bb,
     //     num_instructions++;
     // }
 
+    // reference
+    // https://github.com/DynamoRIO/dynamorio/blob/master/api/samples/inscount.cpp
     bool is_emulation = false;
     uint emulation_length = 0;
     // bb_pc_map[counts_as_built.blocks+1] = std::vector<app_pc>();
